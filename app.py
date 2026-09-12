@@ -30,7 +30,7 @@ if "history" not in st.session_state:
 # ✅ Response section
 if user_input:
     try:
-        model = genai.GenerativeModel("gemini-1.5-pro-latest")
+        model = genai.GenerativeModel("gemini-1.5-pro")
         response = model.generate_content(user_input)
         st.success(f"ANOI বলছে: {response.text}")
         st.session_state["history"].append((user_input, response.text))
