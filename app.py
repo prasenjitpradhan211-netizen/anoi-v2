@@ -1,13 +1,13 @@
 import streamlit as st
 import google.generativeai as genai
 
-# ✅ Gemini API key নিরাপদভাবে Streamlit Secrets থেকে নাও
+# ✅ Gemini API key নিরাপদে Streamlit Secrets থেকে নাও
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
 # ✅ Page setup
 st.set_page_config(
     page_title="ANOI Assistant",
-    page_icon="🚀",
+    page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
 )
