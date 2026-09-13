@@ -1,26 +1,19 @@
 import streamlit as st
-from openai import OpenAI
+import google.generativeai as genai
 
-# ✅ Client configure করো (Secrets থেকে API key নেবে)
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+# API Key secrets.toml থেকে পড়বে
+genai.configure(api_key=st.secrets["general"]["GEMINI_API_KEY"])
 
-# ✅ Title
+# Model name ও secrets.toml থেকে পড়বে
+model_name = st.secrets["general"]["MODEL_NAME"]
+
+# Model initialize
+model = genai.GenerativeModel(model_name)
+
 st.title("ANOI Assistant 🚀")
-st.write("হ্যালো ভাই, আমি ANOI, তোমার AI সহকারী।")
 
-# ✅ Input box
-user_input = st.text_input("✍ কিছু লিখো:")
+user_input = st.text_input("তোমার প্রশ্ন লিখো:")
 
-# ✅ Response section
 if user_input:
-    try:
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",   # চাইলে "gpt-4" ব্যবহার করতে পারো
-            messages=[
-                {"role": "system", "content": "You are ANOI, a bilingual Bengali-English assistant."},
-                {"role": "user", "content": user_input}
-            ]
-        )
-        st.success(f"ANOI বলছে: {response.choices[0].message.content}")
-    except Exception as e:
-        st.error(f"⚠️ Error: {e}")
+    response = model.generate_content(user_input)
+    st.write(response.text)
