@@ -1,20 +1,19 @@
 import streamlit as st
 import openai
 
-# ✅ API key বসাও (Secrets এ রাখা সবচেয়ে safe)
+# ✅ API key Secrets থেকে নেবে
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# ✅ App Title
+# ✅ Title
 st.title("ANOI Assistant 🚀")
 st.write("Hello ভাই! আমি ANOI, তোমার AI সহকারী।")
 
-# ✅ User Input
+# ✅ Input box
 user_input = st.text_input("✍ কিছু লিখো:")
 
-# ✅ Response Section
+# ✅ Response section
 if user_input:
     try:
-        # OpenAI ChatCompletion ব্যবহার
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",   # চাইলে "gpt-4" ব্যবহার করতে পারো
             messages=[
